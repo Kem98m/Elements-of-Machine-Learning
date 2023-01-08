@@ -111,7 +111,7 @@ def centroid(points):
 
 
 def cut_polygon(poly, boundary):
-    partition = SnS(segment=None, negative=None, positive=None)
+    partition = SnS(segment=None, left=None, right=None)
     if poly is not None:
         n = len(poly)
         if n > 2:
@@ -167,13 +167,13 @@ def cut_polygon(poly, boundary):
                 else:
                     right, left = poly_b, poly_a
                     s = segment(s[1], s[0])
-                partition = SnS(segment=s, negative=left, positive=right)
+                partition = SnS(segment=s, left=left, right=right)
             if partition.segment is None:
                 d = point_line_signed_distance(centroid(poly), boundary)
                 if d > 0.:
-                    partition.positive = poly
+                    partition.right = poly
                 else:
-                    partition.negative = poly
+                    partition.left = poly
     return partition
 
 
